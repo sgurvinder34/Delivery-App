@@ -2,6 +2,7 @@ const User=require("../Model/user.model")
 const Order=require("../Model/order.model")
 const constantsUser=require("../utils/user")
 const constantOrder=require("../utils/order.utils")
+const notification=require("../utils/notification.utils")
 exports.create=async(req,res)=>{
     try{
         const user=await User.findOne({userId:req.user})
@@ -21,7 +22,7 @@ exports.create=async(req,res)=>{
         }
         console.log( '#### NEW ORDER CREATED BY',user.name,'####')
         res.status(201).send(orderobj)
-
+        notification(`Ticket Created With: ${newOrder._id}`,"Customer Order",`${user.email},sgurvinder9263@gmail.com`,"Delivery App")
 
     }
     catch(err){
